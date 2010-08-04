@@ -104,20 +104,10 @@ void setup(){
   print("Z: " + CleanFloat(STLFile.bz1) + " - " + CleanFloat(STLFile.bz2) + "   ");
   if(STLFile.bz1<0)print("\n(Values below z=0 not exported.)");
 
-  //THEN scale to fit the screen
-//  if((STLFile.bx2-STLFile.bx1)>(STLFile.by2-STLFile.by1))
-//  {
-//    STLFile.Scale(width/(STLFile.bx2-STLFile.bx1));
-//  }
-//  else
-//  {
-//    STLFile.Scale(height/(STLFile.by2-STLFile.by1));
-//  }
 
   //Match viewport scale to 1cm per gridline
   STLFile.Scale(DisplayScale);
   STLFile.Translate(BuildPlatformWidth*DisplayScale/2,BuildPlatformHeight*DisplayScale/2,-STLFile.bz1);
-  //STLFile.Translate(-STLFile.bx1,-STLFile.by1,-STLFile.bz1);
   MeshHeight=STLFile.bz2-STLFile.bz1;
 
 }
@@ -125,9 +115,6 @@ void setup(){
 void draw()
 {
   background(0);
-  //noStroke();
- 
-  //background(0);
   stroke(0);
   strokeWeight(2);
 
@@ -140,7 +127,6 @@ void draw()
     Triangle tri = (Triangle) STLFile.Triangles.get(i);
     Intersection = tri.GetZIntersect(MeshHeight*mouseX/width);
     if(Intersection!=null)Slice.add(Intersection);
-    //if(Intersection!=null)print(Intersection.x1 + " \n");
   }
 
 
@@ -160,10 +146,6 @@ void draw()
     //lin.Scale(15);
     line(lin.x1,lin.y1,lin.x2,lin.y2);
   }
-  //Note, the profile contains everything you need
-  //to do a full Skeinview-style display; we need
-  //extrude colors and especially arrows!
-
 }
 
 
@@ -174,7 +156,6 @@ float bin_to_float(byte b0, byte b1, byte b2, byte b3)
   float significand;
   float finalvalue=0;
   
-  //fraction = b0 + b1<<8 + (b2 & 0x7F)<<16 + 1<<24;
   exponent = (b3 & 0x7F)*2 | (b2 & 0x80)>>7;
   sign = (b3&0x80)>>7;
   exponent = exponent-127;

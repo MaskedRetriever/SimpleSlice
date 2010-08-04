@@ -43,7 +43,6 @@ class Slice {
 
     float epsilon = 1e-6;
     
-    //while(Lines.size()<FinalSize)
     while(UnsortedLines.size()>0)
     {
       Line2D CLine = (Line2D) Lines.get(Lines.size()-1);//Get last
